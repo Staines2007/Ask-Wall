@@ -1,61 +1,60 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-export default function QuestionsPage() {
-  const [title, setTitle] = useState("");
-  const [questions, setQuestions] = useState<any[]>([]);
+export default function LoginPage() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
 
-  const loadQuestions = async () => {
-    const res = await fetch("/api/questions");
-    const data = await res.json();
-
-    setQuestions(data);
-  };
-
-  useEffect(() => {
-    loadQuestions();
-  }, []);
-
-  const createQuestion = async () => {
-    await fetch("/api/questions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title }),
-    });
-
-    setTitle("");
-
-    loadQuestions();
+  const handleLogin = () => {
+    if (username === "admin" && password === "admin123") {
+      localStorage.setItem("loggedIn", "true");
+      router.push("/questions");
+    } else {
+      alert("Invalid username or password");
+    }
   };
 
   return (
-    <main className="p-10">
-      <h1 className="text-3xl font-bold mb-5">
-        Questions
-      </h1>
+    <main className="min-h-screen flex items-center justify-center">
+      <div className="border rounded-lg p-8 shadow-md w-96">
+        <h1 className="text-3xl font-bold mb-6 text-center">
+          Ask Wall Login
+        </h1>
 
-      <input
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Enter question"
-        className="border p-2 mr-2"
-      />
+        <input
+          type="text"
+          placeholder="Username"
+          className="border p-2 w-full mb-4 rounded"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
 
-      <button
-        onClick={createQuestion}
-        className="border p-2"
-      >
-        Add
-      </button>
+        <input
+          type="password"
+          placeholder="Password"
+          className="border p-2 w-full mb-4 rounded"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-      <ul className="mt-6">
-        {questions.map((q) => (
-          <li key={q._id}>{q.title}</li>
-        ))}
-      </ul>
+        <button
+          onClick={handleLogin}
+          className="w-full border p-2 rounded hover:bg-gray-100"
+        >
+          Login
+        </button>
+
+        <p className="mt-4 text-sm text-gray-500 text-center">
+          Demo Credentials:
+          <br />
+          Username: <strong>admin</strong>
+          <br />
+          Password: <strong>admin123</strong>
+        </p>
+      </div>
     </main>
   );
 }
