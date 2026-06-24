@@ -21,3 +21,53 @@ Displays all submitted questions.
 ### Question Details Screen
 
 Shows a selected question and its answers.
+## Features
+
+### Authentication
+
+The application supports user authentication.
+
+- User Registration
+- User Login
+- User Logout
+- Current User Profile
+
+Authentication APIs:
+
+- POST /api/auth/register
+- POST /api/auth/login
+- POST /api/auth/logout
+- GET /api/auth/me
+
+### CRUD Operations
+
+The application supports full CRUD operations for Questions.
+
+Create:
+- POST /api/questions
+
+Read:
+- GET /api/questions
+- GET /api/questions/:id
+
+Update:
+- PUT /api/questions/:id
+
+Delete:
+- DELETE /api/questions/:id
+
+### Deployment
+
+The project includes a Dockerfile for deployment.
+
+Build:
+
+```bash
+docker build -t ask-wall .
+```
+
+Run:
+
+```bash
+docker run -p 3000:3000 ask-wall
+```
