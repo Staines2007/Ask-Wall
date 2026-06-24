@@ -71,3 +71,40 @@ Run:
 ```bash
 docker run -p 3000:3000 ask-wall
 ```
+## AI Features
+
+Ask-Wall integrates OpenAI GPT models to generate intelligent responses.
+
+### Environment Variables
+
+```env
+OPENAI_API_KEY=your_api_key
+```
+
+### AI Endpoint
+
+POST `/api/ai`
+
+Request:
+
+```json
+{
+  "question": "What is Artificial Intelligence?"
+}
+```
+
+Response:
+
+```json
+{
+  "answer": "Artificial Intelligence is..."
+}
+```
+
+### Technology Stack
+
+* Next.js
+* TypeScript
+* OpenAI SDK
+* JWT Authentication
+* Docker
